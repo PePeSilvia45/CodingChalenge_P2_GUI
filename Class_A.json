@@ -1,86 +1,64 @@
-[
-    {
-        "student": {
-            "name": "James",
-            "marks": "555"
+{
+    "students": [
+        {
+            "name": "James_Smith",
+            "mark": "555"
+        },
+        {
+            "name": "John_Orin",
+            "mark": "545"
+        },
+        {
+            "name": "Stacy_Smith",
+            "mark": "455"
+        },
+        {
+            "name": "Sarah_Hallin",
+            "mark": "354"
+        },
+        {
+            "name": "Jennifer_Winslow",
+            "mark": "345"
+        },
+        {
+            "name": "Sam_Tarly",
+            "mark": "333"
+        },
+        {
+            "name": "Bob_Ross",
+            "mark": "222"
+        },
+        {
+            "name": "Chris_pinicle",
+            "mark": "234"
+        },
+        {
+            "name": "Kevin_Peters",
+            "mark": "253"
+        },
+        {
+            "name": "Lewis_Newt",
+            "mark": "123"
+        },
+        {
+            "name": "Gary_Cullin",
+            "mark": "000"
+        },
+        {
+            "name": "Cameron_Barrlow",
+            "mark": "111"
+        },
+        {
+            "name": "Nick_Frost",
+            "mark": "234"
+        },
+        {
+            "name": "Mark_Wright",
+            "mark": "432"
+        },
+        {
+            "name": "James_Wrong",
+            "mark": "000"
         }
-    },
-    {
-        "student": {
-            "name": "John",
-            "marks": "545"
-        }
-    },
-    {
-        "student": {
-            "name": "Smith",
-            "marks": "455"
-        }
-    },
-    {
-        "student": {
-            "name": "Sarah",
-            "marks": "354"
-        }
-    },
-    {
-        "student": {
-            "name": "Jennifer",
-            "marks": "345"
-        }
-    },
-    {
-        "student": {
-            "name": "Sam",
-            "marks": "333"
-        }
-    },
-    {
-        "student": {
-            "name": "Bob",
-            "marks": "222"
-        }
-    },
-    {
-        "student": {
-            "name": "Chris",
-            "marks": "234"
-        }
-    },
-    {
-        "student": {
-            "name": "Kevin",
-            "marks": "253"
-        }
-    },
-    {
-        "student": {
-            "name": "Lewis",
-            "marks": "123"
-        }
-    },
-    {
-        "student": {
-            "name": "Gary",
-            "marks": "000"
-        }
-    },
-    {
-        "student": {
-            "name": "Cameron",
-            "marks": "111"
-        }
-    },
-    {
-        "student": {
-            "name": "Nick",
-            "marks": "234"
-        }
-    },
-    {
-        "student": {
-            "name": "Mark",
-            "marks": "432"
-        }
-    }
-]
+    ]
+}

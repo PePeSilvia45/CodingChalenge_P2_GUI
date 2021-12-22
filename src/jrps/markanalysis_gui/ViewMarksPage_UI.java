@@ -1,7 +1,10 @@
 package jrps.markanalysis_gui;
 
-import javax.swing.JOptionPane;
-import static jrps.markanalysis_gui.CreateStudent.classMarksList;
+import static jrps.markanalysis_gui.MarkAnalysis_UI.classMarksList;
+import static jrps.markanalysis_gui.MarkAnalysis_UI.fileDisplayed;
+import static jrps.markanalysis_gui.MarkAnalysis_UI.studentsJSONArray;
+import org.json.simple.JSONObject;
+
 
 /**
  * @author James Park
@@ -24,13 +27,13 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAreaDisplayNamesAndMarks = new javax.swing.JTextArea();
         btbRemoveStudentData = new javax.swing.JButton();
         txtRemoveStudentData = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnRefreshMarksDisplay = new javax.swing.JButton();
         btnViewStatisticsAndBreakDown = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblStudentNamesAndMarks = new javax.swing.JTable();
         btnCloseViewMarks = new javax.swing.JButton();
 
         btnExit.setText("Exit");
@@ -46,11 +49,6 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Vew Marks"));
-
-        txtAreaDisplayNamesAndMarks.setEditable(false);
-        txtAreaDisplayNamesAndMarks.setColumns(20);
-        txtAreaDisplayNamesAndMarks.setRows(5);
-        jScrollPane1.setViewportView(txtAreaDisplayNamesAndMarks);
 
         btbRemoveStudentData.setText("Remove");
         btbRemoveStudentData.addActionListener(new java.awt.event.ActionListener() {
@@ -82,15 +80,55 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
             }
         });
 
+        tblStudentNamesAndMarks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Name", "Mark"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblStudentNamesAndMarks);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -99,8 +137,9 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
                             .addComponent(btbRemoveStudentData))
                         .addGap(124, 124, 124))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnViewStatisticsAndBreakDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -111,14 +150,14 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(btnRefreshMarksDisplay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnViewStatisticsAndBreakDown)))
-                .addGap(18, 18, 18)
+                        .addComponent(btnViewStatisticsAndBreakDown))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
                     .addComponent(txtRemoveStudentData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,8 +202,8 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,11 +220,15 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
         if (!fileDisplayed) {
-            txtAreaDisplayNamesAndMarks.setText("");
-            classMarksList.forEach(data -> {
-                txtAreaDisplayNamesAndMarks.setText(
-                        txtAreaDisplayNamesAndMarks.getText() + data + "\n");
-            });
+            //studentsJSONArray
+            for(int i = 0;i < studentsJSONArray.size();i++){
+                JSONObject student = (JSONObject)studentsJSONArray.get(i);
+                String name = (String) student.get("name");
+                String mark = (String) student.get("mark");
+                
+                tblStudentNamesAndMarks.setValueAt(name, i, 0);
+                tblStudentNamesAndMarks.setValueAt(mark, i, 1);
+            }
         }
         fileDisplayed = true;
 
@@ -201,27 +244,18 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRemoveStudentDataMouseClicked
 
     private void btbRemoveStudentDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbRemoveStudentDataActionPerformed
-        nameToRemove = txtRemoveStudentData.getText();
-        
-        for (String data : classMarksList) {
-            if (data.substring(0, data.indexOf(" ")).equals(nameToRemove)) {
-//                JOptionPane.OK_CANCEL_OPTION.showConfirmDialog(null,"","");
-//                classMarksList.remove(data);
-//                nameFound = true;
-//                JOptionPane.showMessageDialog(null, "Record Removed", "Removed", JOptionPane.INFORMATION_MESSAGE);
-                new DeletingStudentDataWarning_UI().setVisible(true);
-                break;
-            }
-        }
         
     }//GEN-LAST:event_btbRemoveStudentDataActionPerformed
 
     private void btnRefreshMarksDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshMarksDisplayActionPerformed
-        txtAreaDisplayNamesAndMarks.setText("");
-        classMarksList.forEach(data -> {
-            txtAreaDisplayNamesAndMarks.setText(
-                    txtAreaDisplayNamesAndMarks.getText() + data + "\n");
-        });
+        for(int i = 0;i < studentsJSONArray.size();i++){
+                JSONObject student = (JSONObject)studentsJSONArray.get(i);
+                String name = (String) student.get("name");
+                String mark = (String) student.get("mark");
+                
+                tblStudentNamesAndMarks.setValueAt(name, i, 0);
+                tblStudentNamesAndMarks.setValueAt(mark, i, 1);
+            }
     }//GEN-LAST:event_btnRefreshMarksDisplayActionPerformed
 
     private void btnViewStatisticsAndBreakDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewStatisticsAndBreakDownActionPerformed
@@ -232,10 +266,7 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    static boolean fileDisplayed = false;
-    static boolean yesRemove = false;
-    static boolean cancelRemove = false;
-    static String nameToRemove;
+    
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -279,8 +310,8 @@ public class ViewMarksPage_UI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtAreaDisplayNamesAndMarks;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblStudentNamesAndMarks;
     private javax.swing.JTextField txtRemoveStudentData;
     // End of variables declaration//GEN-END:variables
 }

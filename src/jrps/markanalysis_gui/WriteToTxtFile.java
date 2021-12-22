@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import static jrps.markanalysis_gui.MarkAnalysis_UI.classMarksList;
 
 /**
  * @author James Park
@@ -20,7 +21,7 @@ public class WriteToTxtFile {
         if (file.isFile() == false) {
             try (FileWriter txtWriteToFile = new FileWriter(file, false)) {
 
-                for (String data : CreateStudent.classMarksList) {
+                for (String data : classMarksList) {
 
                     txtWriteToFile.write(data + "\n");
 
@@ -38,7 +39,7 @@ public class WriteToTxtFile {
 
                 try (FileWriter txtWriteToFile = new FileWriter(file, false)) {
 
-                    for (String data : CreateStudent.classMarksList) {
+                    for (String data : classMarksList) {
 
                         txtWriteToFile.write(data + "\n");
 

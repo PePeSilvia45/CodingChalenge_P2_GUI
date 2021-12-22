@@ -1,11 +1,13 @@
 package jrps.markanalysis_gui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
-import static jrps.markanalysis_gui.CreateStudent.classMarksList;
 import static jrps.markanalysis_gui.CreateStudent.createStudentList;
+import static jrps.markanalysis_gui.ReadFromJSONFile.getFromJSONReader;
 import static jrps.markanalysis_gui.WriteToTxtFile.writeToTxtFile;
 import static jrps.markanalysis_gui.ReadFromTxtFile.readFromTxtFile;
+import org.json.simple.JSONArray;
 
 /**
  * @author James Park
@@ -24,16 +26,17 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnLoadFile = new javax.swing.JButton();
-        txtEnterStudentFirstName = new javax.swing.JTextField();
+        txtGetStudentFirstName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtEnterStudentMark = new javax.swing.JTextField();
+        txtGetStudentMark = new javax.swing.JTextField();
         btnEnterStudentNameAndMark = new javax.swing.JButton();
         btnSaveMarksToJSONFile = new javax.swing.JButton();
         btnMoveToViewMarksPage = new javax.swing.JButton();
-        txtEnterFileName = new javax.swing.JTextField();
+        txtGetFileName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtEnterStudentSecondName = new javax.swing.JTextField();
+        txtGetStudentSecondName = new javax.swing.JTextField();
+        cmbGetFileExtension = new javax.swing.JComboBox<>();
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,65 +82,67 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
 
         jLabel4.setText("Second Name: ");
 
+        cmbGetFileExtension.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { ".txt", ".json" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtEnterStudentMark, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtGetFileName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbGetFileExtension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtGetStudentMark, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEnterStudentNameAndMark))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtEnterFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEnterStudentFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEnterStudentSecondName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnLoadFile))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtGetStudentFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtGetStudentSecondName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnLoadFile)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMoveToViewMarksPage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSaveMarksToJSONFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnMoveToViewMarksPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSaveMarksToJSONFile, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEnterStudentNameAndMark, btnLoadFile, btnMoveToViewMarksPage, btnSaveMarksToJSONFile});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtEnterFileName, txtEnterStudentFirstName});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtEnterFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(txtGetFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbGetFileExtension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLoadFile)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEnterStudentFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGetStudentFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEnterStudentSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGetStudentSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtEnterStudentMark)
+                    .addComponent(txtGetStudentMark)
                     .addComponent(btnEnterStudentNameAndMark))
                 .addGap(39, 39, 39)
                 .addComponent(btnSaveMarksToJSONFile)
@@ -198,7 +203,7 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         Scanner askUserToSave = new Scanner(System.in);
-        if (MarkAnalysis_UI.loadedInformationMatchesCurrentInformation) {
+        if (loadedInformationMatchesCurrentInformation) {
             System.exit(0);
         } else {
             System.out.println("""
@@ -226,17 +231,18 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
             ViewMarksPage_UI vmp = new ViewMarksPage_UI();
             vmp.setVisible(true);
         } else {
-            //NO MARKS IN MEMORY
+            JOptionPane.showMessageDialog(null, "No Data Loaded To Analyse", "Warning", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_btnMoveToViewMarksPageActionPerformed
 
     private void btnSaveMarksToJSONFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveMarksToJSONFileActionPerformed
-        fileName = txtEnterFileName.getText();
+        fileName = txtGetFileName.getText();
         if ("".equals(fileName)) {
             JOptionPane.showMessageDialog(null, "File Not Found This time", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            writeToTxtFile(MarkAnalysis_UI.fileName);
+            //writeToTxtFile(fileName);
+            WriteToJSONFile.writeToJSON(fileName);
             MarkAnalysis_UI.loadedInformationMatchesCurrentInformation = true;
 
         }
@@ -252,9 +258,9 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
         String studentMarks = "";
 
         MarkAnalysis_UI.loadedInformationMatchesCurrentInformation = false;
-        studentFirstName = txtEnterStudentFirstName.getText();
-        studentSecondName = txtEnterStudentSecondName.getText();
-        studentFullName = txtEnterStudentFirstName.getText() + "_" + txtEnterStudentSecondName.getText();
+        studentFirstName = txtGetStudentFirstName.getText();
+        studentSecondName = txtGetStudentSecondName.getText();
+        studentFullName = txtGetStudentFirstName.getText() + "_" + txtGetStudentSecondName.getText();
 
         if (!"".equals(studentFirstName) && !"".equals(studentSecondName)) {
             studentNameSet = true;
@@ -262,27 +268,24 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Student Name Not Entered", "Warning", JOptionPane.WARNING_MESSAGE);
         }
 
-        if (txtEnterStudentMark.getText().length() != 3) {
-            //Make sure the user has entered a mark for each section
-            if (txtEnterStudentMark.getText().length() < 3) {
+        if (txtGetStudentMark.getText().length() != 3) {
+
+            if (txtGetStudentMark.getText().length() < 3) {
                 JOptionPane.showMessageDialog(null, "Enter Marks For All 3 Sections", "Warning", JOptionPane.WARNING_MESSAGE);
-            } else if (txtEnterStudentMark.getText().length() > 3) {
+            } else if (txtGetStudentMark.getText().length() > 3) {
                 JOptionPane.showMessageDialog(null, "Enter Marks For Only The 3 Sections", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-
         } else {
-            //Make sure that the numbers entered are all between 0 and 5
-            if (((Character.getNumericValue(txtEnterStudentMark.getText().charAt(0)) <= 5)
-                    && (Character.getNumericValue(txtEnterStudentMark.getText().charAt(0)) >= 0))
-                    && ((Character.getNumericValue(txtEnterStudentMark.getText().charAt(1)) <= 5)
-                    && (Character.getNumericValue(txtEnterStudentMark.getText().charAt(1)) >= 0))
-                    && ((Character.getNumericValue(txtEnterStudentMark.getText().charAt(2)) <= 5)
-                    && (Character.getNumericValue(txtEnterStudentMark.getText().charAt(2)) >= 0))) {
-                // Add the valid mark to the ArrayList
-                studentMarks = txtEnterStudentMark.getText();
+
+            if (((Character.getNumericValue(txtGetStudentMark.getText().charAt(0)) <= 5)
+                    && (Character.getNumericValue(txtGetStudentMark.getText().charAt(0)) >= 0))
+                    && ((Character.getNumericValue(txtGetStudentMark.getText().charAt(1)) <= 5)
+                    && (Character.getNumericValue(txtGetStudentMark.getText().charAt(1)) >= 0))
+                    && ((Character.getNumericValue(txtGetStudentMark.getText().charAt(2)) <= 5)
+                    && (Character.getNumericValue(txtGetStudentMark.getText().charAt(2)) >= 0))) {
+                studentMarks = txtGetStudentMark.getText();
                 studentMarksSet = true;
             } else {
-                //Ask the user to enter a mark between 0-5
                 JOptionPane.showMessageDialog(null, "Enter Marks Out Of Five", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
@@ -291,20 +294,25 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
             createStudentList(studentFullName, studentMarks);
         }
 
-        txtEnterStudentMark.setText("");
-        txtEnterStudentFirstName.setText("");
-        txtEnterStudentSecondName.setText("");
+        txtGetStudentMark.setText("");
+        txtGetStudentFirstName.setText("");
+        txtGetStudentSecondName.setText("");
 
     }//GEN-LAST:event_btnEnterStudentNameAndMarkActionPerformed
 
     private void btnLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFileActionPerformed
-        if (!"".equalsIgnoreCase(txtEnterFileName.getText())) {
-            fileName = txtEnterFileName.getText();
-//        readFromJSONFile(fileName);   //READ JSON BROKE
-            readFromTxtFile(fileName);
+        if (!"".equalsIgnoreCase(txtGetFileName.getText())) {
+            fileName = txtGetFileName.getText();
+
+            if (cmbGetFileExtension.getSelectedItem().equals(".txt")) {
+                readFromTxtFile(fileName);
+            } else if (cmbGetFileExtension.getSelectedItem().equals(".json")) {
+                getFromJSONReader(fileName);
+            }
+
             MarkAnalysis_UI.loadedInformationMatchesCurrentInformation = true;
         } else {
-            // new FileNotFound_UI().setVisible(true);
+
             JOptionPane.showMessageDialog(null, "File Not Found", "Failure", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoadFileActionPerformed
@@ -312,10 +320,19 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    //Globals
+    //--Globals--
+    static int studentNumber;
+    
     static String fileName = "";
-    static String msg = "";
+    static String nameToRemove;
+    
     static boolean loadedInformationMatchesCurrentInformation = true;
+    static boolean fileDisplayed = false;
+    
+    static ArrayList<String> classMarksList = new ArrayList<String>();
+    
+    static JSONArray studentsJSONArray = new JSONArray();
+    //--Globals--
 
     public static void main(String args[]) throws InstantiationException {
         /* Set the Nimbus look and feel */
@@ -354,15 +371,16 @@ public class MarkAnalysis_UI extends javax.swing.JFrame {
     private javax.swing.JButton btnLoadFile;
     private javax.swing.JButton btnMoveToViewMarksPage;
     private javax.swing.JButton btnSaveMarksToJSONFile;
+    private javax.swing.JComboBox<String> cmbGetFileExtension;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField txtEnterFileName;
-    private javax.swing.JTextField txtEnterStudentFirstName;
-    private javax.swing.JTextField txtEnterStudentMark;
-    private javax.swing.JTextField txtEnterStudentSecondName;
+    private javax.swing.JTextField txtGetFileName;
+    private javax.swing.JTextField txtGetStudentFirstName;
+    private javax.swing.JTextField txtGetStudentMark;
+    private javax.swing.JTextField txtGetStudentSecondName;
     // End of variables declaration//GEN-END:variables
 }

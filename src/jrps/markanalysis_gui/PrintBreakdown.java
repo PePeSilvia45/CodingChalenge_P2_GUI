@@ -1,7 +1,7 @@
 package jrps.markanalysis_gui;
 
 import java.util.ArrayList;
-import static jrps.markanalysis_gui.CreateStudent.classMarksList;
+import static jrps.markanalysis_gui.MarkAnalysis_UI.classMarksList;
 
 /**
  * @author James Park
